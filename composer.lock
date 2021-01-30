@@ -1,0 +1,65 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "85656df7b34e1f2d490e39b9e94140f3",
+    "packages": [
+        {
+            "name": "hermesmartins/php-ean13-validator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/HermesMartins/php-ean13-validator.git",
+                "reference": "2b74d2161f5bbd5ac217e8b1457c053494c26b8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/HermesMartins/php-ean13-validator/zipball/2b74d2161f5bbd5ac217e8b1457c053494c26b8c",
+                "reference": "2b74d2161f5bbd5ac217e8b1457c053494c26b8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HermesMartins\\EAN13\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hermes Davy Martins",
+                    "email": "hdmartins.ufabc@gmail.com"
+                }
+            ],
+            "description": "This package has the function to validate an EAN with 13 numbers.",
+            "support": {
+                "issues": "https://github.com/HermesMartins/php-ean13-validator/issues",
+                "source": "https://github.com/HermesMartins/php-ean13-validator/tree/master"
+            },
+            "time": "2018-04-17T19:05:22+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "hermesmartins/php-ean13-validator": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}

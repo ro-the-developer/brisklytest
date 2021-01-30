@@ -1,0 +1,5 @@
+{
+    "require": {
+        "hermesmartins/php-ean13-validator": "dev-master"
+    }
+}
