@@ -1,5 +1,5 @@
 <?php
-namespace BrisklyTest;
+namespace XlsxTest;
 
 class JsonHelper
 {

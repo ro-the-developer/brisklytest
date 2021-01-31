@@ -1,6 +1,6 @@
 <?php
 
-namespace BrisklyTest;
+namespace XlsxTest;
 
 use HermesMartins\EAN13\EAN13Validator;
 

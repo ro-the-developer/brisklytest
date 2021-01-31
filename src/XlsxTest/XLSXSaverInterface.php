@@ -1,5 +1,5 @@
 <?php
-namespace BrisklyTest;
+namespace XlsxTest;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
