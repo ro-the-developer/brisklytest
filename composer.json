@@ -1,5 +1,11 @@
 {
     "require": {
-        "hermesmartins/php-ean13-validator": "dev-master"
+        "hermesmartins/php-ean13-validator": "dev-master",
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "BrisklyTest\\": "src/BrisklyTest/"
+        }
     }
 }
