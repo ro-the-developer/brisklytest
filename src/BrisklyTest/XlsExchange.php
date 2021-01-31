@@ -10,18 +10,16 @@ class XlsExchange
     protected bool $stopOnBarcodeError = true;
 
     protected string $outputFilename;
-    protected string $ftpHost;
-    protected string $ftpLogin;
-    protected string $ftpPassword;
-    protected string $ftpDir;
 
     protected EAN13Validator $EAN13Validator;
     protected XLSXHelper $XSLXHelper;
+    protected XLSXSaverInterface $saver;
 
-    public function __construct(EAN13Validator $EAN13Validator, XLSXHelper $XSLXHelper)
+    public function __construct(EAN13Validator $EAN13Validator, XLSXHelper $XSLXHelper, ?XLSXSaverInterface $saver)
     {
         $this->EAN13Validator = $EAN13Validator;
         $this->XSLXHelper = $XSLXHelper;
+        $this->saver = $saver;
     }
 
     public function setOutputFile($filename)
@@ -74,6 +72,7 @@ class XlsExchange
                    'Кол-во' => [],
                    'Сумма' => []
         ];
-        $this->XSLXHelper->simpleTable($header, $items)->save($this->outputFilename);
+        $spreadsheet = $this->XSLXHelper->simpleTable($header, $items);
+        $this->saver->save($spreadsheet, $this->outputFilename);
     }
 }

@@ -4,7 +4,6 @@ namespace BrisklyTest;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class XLSXHelper
 {
@@ -15,7 +14,18 @@ class XLSXHelper
         $this->spreadsheet = new Spreadsheet();
     }
 
-    public function simpleTable($header, $items)
+    /**
+     * Функция для базового фоматирования таблиц Excel
+     * @param array $header массив, где ключ - это заголовок колонки, а значение - правила форматирования данных в ней
+     * @param array $items данные для таблицы, двумерный массив
+     *
+     * Из методов форматирования пока доступен только forceNumber, предотвращает экспоненциальное представление чисел
+     * @todo: добавить принудительное форматирование как текст
+     * @todo: сделать размещение таблицы относительным, от переданных координат верхнего левого угла
+     *
+     * @return XLSXHelper
+     */
+    public function simpleTable( array $header, array $items): Spreadsheet
     {
         $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->fromArray(array_merge([array_keys($header)], $items ));
@@ -42,11 +52,6 @@ class XLSXHelper
         {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
-        return $this;
-    }
-
-    public function save($filename)
-    {
-        (new Xlsx($this->spreadsheet))->save($filename);
+        return $this->spreadsheet;
     }
 }
