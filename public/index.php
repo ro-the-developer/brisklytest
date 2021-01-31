@@ -1,14 +1,15 @@
 <?php
 use BrisklyTest\XlsExchange;
+use BrisklyTest\XLSXHelper;
 use HermesMartins\EAN13\EAN13Validator;
 
 require __DIR__.'/../vendor/autoload.php';
 
-$EAN13Validator = new EAN13Validator();
-$XlsExchange = new XlsExchange($EAN13Validator);
+$XlsExchange = new XlsExchange(new EAN13Validator(), new XLSXHelper());
 
 $XlsExchange
-    ->setInputFile(__DIR__.'/../var/input/order.json')
     ->stopOnBarcodeError(false)
+    ->getOrder(__DIR__.'/../var/input/order.json')
+    ->setOutputFile(__DIR__.'/../var/output/order.xlsx')
     ->export()
 ;

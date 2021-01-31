@@ -1,31 +1,32 @@
 <?php
+
 namespace BrisklyTest;
 
-use BrisklyTest\JsonHelper;
 use HermesMartins\EAN13\EAN13Validator;
 
 class XlsExchange
 {
     protected array $order;
-    protected array $items = [];
     protected bool $stopOnBarcodeError = true;
 
-    protected string $inputFilename;
     protected string $outputFilename;
     protected string $ftpHost;
     protected string $ftpLogin;
     protected string $ftpPassword;
     protected string $ftpDir;
-    protected EAN13Validator $EAN13Validator;
 
-    public function __construct(EAN13Validator $EAN13Validator)
+    protected EAN13Validator $EAN13Validator;
+    protected XLSXHelper $XSLXHelper;
+
+    public function __construct(EAN13Validator $EAN13Validator, XLSXHelper $XSLXHelper)
     {
         $this->EAN13Validator = $EAN13Validator;
+        $this->XSLXHelper = $XSLXHelper;
     }
 
-    public function setInputFile($filename)
+    public function setOutputFile($filename)
     {
-        $this->inputFilename = $filename;
+        $this->outputFilename = $filename;
         return $this;
     }
 
@@ -35,14 +36,15 @@ class XlsExchange
         return $this;
     }
 
-    protected function getOrder()
+    public function getOrder($filename)
     {
-        $this->order = JsonHelper::fromFile($this->inputFilename, true);
+        $this->order = JsonHelper::fromFile($filename, true);
         return $this;
     }
 
     protected function getItems()
     {
+        $items = [];
         foreach ($this->order['items'] as $item) {
             if (!$this->EAN13Validator->isAValidEAN13($item['item']['barcode'])) {
                 if ($this->stopOnBarcodeError) {
@@ -53,20 +55,25 @@ class XlsExchange
                     continue;
                 }
             }
-            $this->items[] = [
+            $items[] = [
                 'id' => $item['item']['id'],
                 'barcode' => $item['item']['barcode'],
                 'name' => $item['item']['name'],
                 'quantity' => $item['quantity'],
-                'price' => $item['price'],
                 'total' => $item['quantity'] * $item['price'],
             ];
         }
+        return $items;
     }
     public function export()
     {
-        $this->getOrder();
-        $this->getItems();
-        var_dump($this->items);
+        $items = $this->getItems();
+        $header = ['ID' => [],
+                   'ШК' => ['forceNumber' => true],
+                   'Название' => [],
+                   'Кол-во' => [],
+                   'Сумма' => []
+        ];
+        $this->XSLXHelper->simpleTable($header, $items)->save($this->outputFilename);
     }
 }
